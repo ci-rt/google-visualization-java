@@ -142,9 +142,9 @@ public class QueryTest extends TestCase {
         new ColumnIsNullFilter(new ScalarFunctionColumn(Lists.<AbstractColumn>newArrayList(
             new SimpleColumn("F"), new SimpleColumn("B")), Quotient.getInstance())),
         q.getFilter())));
-    assertEquals("SELECT `A`, MAX(`B`) WHERE (lower(`F B`) IS NULL) AND ((`F` / `B`) IS NULL) AND "
-        + "(`A` > \"foo\") GROUP BY `A` PIVOT `C` ORDER BY `A` DESC LIMIT 7 OFFSET 17 "
-        + "LABEL `A` \"bar\" FORMAT `A` \"foo\"", q.toQueryString());
+    assertEquals("SELECT \"A\", MAX(\"B\") WHERE (lower(\"F B\") IS NULL) AND ((\"F\" / \"B\") IS NULL) AND "
+        + "(\"A\" > \"foo\") GROUP BY \"A\" PIVOT \"C\" ORDER BY \"A\" DESC LIMIT 7 OFFSET 17 "
+        + "LABEL \"A\" \"bar\" FORMAT \"A\" \"foo\"", q.toQueryString());
     assertEquals("", new Query().toQueryString());
   }
 }

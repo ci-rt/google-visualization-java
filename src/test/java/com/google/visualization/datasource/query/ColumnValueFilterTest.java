@@ -68,8 +68,8 @@ public class ColumnValueFilterTest extends TestCase {
         new AggregationColumn(new SimpleColumn("c3"), AggregationType.MAX),
         new DateValue(2007, 2, 3), ComparisonFilter.Operator.LIKE, true);
 
-    assertEquals("`c2` >= 100.23", filter1.toQueryString());
-    assertEquals("DATE '2007-3-3' LIKE MAX(`c3`)", filter2.toQueryString());
+    assertEquals("\"c2\" >= 100.23", filter1.toQueryString());
+    assertEquals("DATE '2007-3-3' LIKE MAX(\"c3\")", filter2.toQueryString());
 
   }
 }

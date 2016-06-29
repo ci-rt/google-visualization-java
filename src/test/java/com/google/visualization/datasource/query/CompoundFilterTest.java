@@ -155,8 +155,8 @@ public class CompoundFilterTest extends TestCase {
     CompoundFilter compoundFilter3 = new CompoundFilter(
         CompoundFilter.LogicalOperator.OR,  subfilterList3);
 
-    assertEquals("((`c1` != `c3`) OR (COUNT(`c2`) > 1000.0) OR (`c1` CONTAINS "
-        + "`c4`)) OR ((`c1` CONTAINS `c4`) AND (true > `c3`))",
+    assertEquals("((\"c1\" != \"c3\") OR (COUNT(\"c2\") > 1000.0) OR (\"c1\" CONTAINS "
+        + "\"c4\")) OR ((\"c1\" CONTAINS \"c4\") AND (true > \"c3\"))",
         compoundFilter3.toQueryString());
   }
 }

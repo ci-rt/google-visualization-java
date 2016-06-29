@@ -69,7 +69,7 @@ public class ColumnColumnFilterTest extends TestCase {
         new AggregationColumn(new SimpleColumn("c4"), AggregationType.SUM),
         new SimpleColumn("c1"), ComparisonFilter.Operator.STARTS_WITH);
 
-    assertEquals("`c3` != AVG(`c4`)", filter1.toQueryString());
-    assertEquals("SUM(`c4`) STARTS WITH `c1`", filter2.toQueryString());
+    assertEquals("\"c3\" != AVG(\"c4\")", filter1.toQueryString());
+    assertEquals("SUM(\"c4\") STARTS WITH \"c1\"", filter2.toQueryString());
   }
 }

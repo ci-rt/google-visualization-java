@@ -137,9 +137,9 @@ public class SimpleColumn extends AbstractColumn {
 
   @Override
   public String toQueryString() {
-    if (columnId.contains("`")) {
-      throw new RuntimeException("Column ID cannot contain backtick (`)");
+    if (columnId.contains("\"")) {
+      throw new RuntimeException("Column ID cannot contain double quotes (\")");
     }
-    return "`" + columnId + "`";
+    return "\"" + columnId + "\"";
   }
 }

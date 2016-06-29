@@ -320,11 +320,11 @@ public class DataSourceHelperTest extends TestCase {
     // parse errors
     checkQueryError("select (", dataTable, "Query parse error: ", true);
     checkQueryError("group by avg(A)", dataTable,
-        "Column [AVG(`A`)] cannot be in GROUP BY because it has an aggregation.");
+        "Column [AVG(\"A\")] cannot be in GROUP BY because it has an aggregation.");
     checkQueryError("pivot avg(A)", dataTable,
-        "Column [AVG(`A`)] cannot be in PIVOT because it has an aggregation.");
+        "Column [AVG(\"A\")] cannot be in PIVOT because it has an aggregation.");
     checkQueryError("where avg(A) > 1", dataTable,
-        "Column [AVG(`A`)] cannot appear in WHERE because it has an aggregation.");
+        "Column [AVG(\"A\")] cannot appear in WHERE because it has an aggregation.");
     checkQueryError("select A, sum(A)", dataTable,
         "Column [A] cannot be selected both with and without aggregation in SELECT.");
     checkQueryError("select sum(C) group by C", dataTable,
@@ -336,17 +336,17 @@ public class DataSourceHelperTest extends TestCase {
     checkQueryError("select min(B) pivot B", dataTable,
         "Column [B] which is aggregated in SELECT, cannot appear in PIVOT.");
     checkQueryError("select A format B 'yes:no'", dataTable,
-        "Column [`B`] which is referenced in FORMAT, is not part of SELECT clause.");
+        "Column [\"B\"] which is referenced in FORMAT, is not part of SELECT clause.");
     checkQueryError("select A label B 'COL'", dataTable,
-        "Column [`B`] which is referenced in LABEL, is not part of SELECT clause.");
+        "Column [\"B\"] which is referenced in LABEL, is not part of SELECT clause.");
     checkQueryError("select A,count(B)", dataTable,
         "Column [A] should be added to GROUP BY, removed from SELECT, or aggregated in SELECT.");
     checkQueryError("select B order by min(A)", dataTable,
-        "Aggregation [MIN(`A`)] found in ORDER BY but was not found in SELECT");
+        "Aggregation [MIN(\"A\")] found in ORDER BY but was not found in SELECT");
     checkQueryError("select min(A) pivot B order by min(A)", dataTable,
         "Column [A] cannot be aggregated in ORDER BY when PIVOT is used.");
     checkQueryError("select min(A) order by B", dataTable,
-        "Column [`B`] which appears in ORDER BY, must be in SELECT as well, " +
+        "Column [\"B\"] which appears in ORDER BY, must be in SELECT as well, " +
         "because SELECT contains aggregated columns.");
     checkQueryError("select min(A) group by B pivot B", dataTable,
         "Column [B] cannot appear both in GROUP BY and in PIVOT.");
