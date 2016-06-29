@@ -311,17 +311,17 @@ public class QueryEngineTest extends TestCase {
     List<ColumnDescription> cols = result.getColumnDescriptions();
 
     assertEquals(5, cols.size());
-    assertEquals("max Number of new songs", cols.get(0).getLabel());
-    assertEquals("min Number of new songs", cols.get(1).getLabel());
+    assertEquals("MAX Number of new songs", cols.get(0).getLabel());
+    assertEquals("MIN Number of new songs", cols.get(1).getLabel());
     assertEquals("Just year", cols.get(2).getLabel());
-    assertEquals("avg Number of new songs", cols.get(3).getLabel());
-    assertEquals("sum Number of new sales", cols.get(4).getLabel());
+    assertEquals("AVG Number of new songs", cols.get(3).getLabel());
+    assertEquals("SUM Number of new sales", cols.get(4).getLabel());
 
-    assertEquals("max-Songs", cols.get(0).getId());
-    assertEquals("min-Songs", cols.get(1).getId());
+    assertEquals("MAX-Songs", cols.get(0).getId());
+    assertEquals("MIN-Songs", cols.get(1).getId());
     assertEquals("Year", cols.get(2).getId());
-    assertEquals("avg-Songs", cols.get(3).getId());
-    assertEquals("sum-Sales", cols.get(4).getId());
+    assertEquals("AVG-Songs", cols.get(3).getId());
+    assertEquals("SUM-Sales", cols.get(4).getId());
 
     // Test data
     String[][] resultStrings = MockDataSource.queryResultToStringMatrix(result);
@@ -367,22 +367,22 @@ public class QueryEngineTest extends TestCase {
     List<ColumnDescription> cols = result.getColumnDescriptions();
 
     assertEquals(16, cols.size());
-    assertEquals("Collection,2.0 max-Sales", cols.get(0).getId());
-    assertEquals("Contraband,2.0 max-Sales", cols.get(1).getId());
-    assertEquals("Contraband,4.0 max-Sales", cols.get(2).getId());
-    assertEquals("Youthanasia,2.0 max-Sales", cols.get(3).getId());
-    assertEquals("Youthanasia,4.0 max-Sales", cols.get(4).getId());
+    assertEquals("Collection,2.0 MAX-Sales", cols.get(0).getId());
+    assertEquals("Contraband,2.0 MAX-Sales", cols.get(1).getId());
+    assertEquals("Contraband,4.0 MAX-Sales", cols.get(2).getId());
+    assertEquals("Youthanasia,2.0 MAX-Sales", cols.get(3).getId());
+    assertEquals("Youthanasia,4.0 MAX-Sales", cols.get(4).getId());
     assertEquals("Year", cols.get(5).getId());
-    assertEquals("Collection,2.0 min-Sales", cols.get(6).getId());
-    assertEquals("Contraband,2.0 min-Sales", cols.get(7).getId());
-    assertEquals("Contraband,4.0 min-Sales", cols.get(8).getId());
-    assertEquals("Youthanasia,2.0 min-Sales", cols.get(9).getId());
-    assertEquals("Youthanasia,4.0 min-Sales", cols.get(10).getId());
-    assertEquals("Collection,2.0 avg-Fans", cols.get(11).getId());
-    assertEquals("Contraband,2.0 avg-Fans", cols.get(12).getId());
-    assertEquals("Contraband,4.0 avg-Fans", cols.get(13).getId());
-    assertEquals("Youthanasia,2.0 avg-Fans", cols.get(14).getId());
-    assertEquals("Youthanasia,4.0 avg-Fans", cols.get(15).getId());
+    assertEquals("Collection,2.0 MIN-Sales", cols.get(6).getId());
+    assertEquals("Contraband,2.0 MIN-Sales", cols.get(7).getId());
+    assertEquals("Contraband,4.0 MIN-Sales", cols.get(8).getId());
+    assertEquals("Youthanasia,2.0 MIN-Sales", cols.get(9).getId());
+    assertEquals("Youthanasia,4.0 MIN-Sales", cols.get(10).getId());
+    assertEquals("Collection,2.0 AVG-Fans", cols.get(11).getId());
+    assertEquals("Contraband,2.0 AVG-Fans", cols.get(12).getId());
+    assertEquals("Contraband,4.0 AVG-Fans", cols.get(13).getId());
+    assertEquals("Youthanasia,2.0 AVG-Fans", cols.get(14).getId());
+    assertEquals("Youthanasia,4.0 AVG-Fans", cols.get(15).getId());
 
     String[][] resultStrings = MockDataSource.queryResultToStringMatrix(result);
     assertEquals(3, resultStrings.length);
@@ -434,8 +434,8 @@ public class QueryEngineTest extends TestCase {
         result.getColumnDescriptions();
 
     assertEquals(3, cols.size());
-    assertEquals("sum-age", cols.get(0).getId());
-    assertEquals("count-dept", cols.get(1).getId());
+    assertEquals("SUM-age", cols.get(0).getId());
+    assertEquals("COUNT-dept", cols.get(1).getId());
     assertEquals("hour_lunchTime", cols.get(2).getId());
 
     String[][] resultStrings = MockDataSource.queryResultToStringMatrix(result);
@@ -480,8 +480,8 @@ public class QueryEngineTest extends TestCase {
     cols = result.getColumnDescriptions();
 
     assertEquals(4, cols.size());
-    assertEquals("sum-age", cols.get(0).getId());
-    assertEquals("count-name", cols.get(1).getId());
+    assertEquals("SUM-age", cols.get(0).getId());
+    assertEquals("COUNT-name", cols.get(1).getId());
     assertEquals("dateDiff_seniorityStartTime,hireDate", cols.get(2).getId());
     assertEquals("dept", cols.get(3).getId());
 
@@ -528,10 +528,10 @@ public class QueryEngineTest extends TestCase {
     List<ColumnDescription> cols = result.getColumnDescriptions();
 
     assertEquals(4, cols.size());
-    assertEquals("12.0 sum-age", cols.get(0).getId());
-    assertEquals("13.0 sum-age", cols.get(1).getId());
-    assertEquals("12.0 count-dept", cols.get(2).getId());
-    assertEquals("13.0 count-dept", cols.get(3).getId());
+    assertEquals("12.0 SUM-age", cols.get(0).getId());
+    assertEquals("13.0 SUM-age", cols.get(1).getId());
+    assertEquals("12.0 COUNT-dept", cols.get(2).getId());
+    assertEquals("13.0 COUNT-dept", cols.get(3).getId());
 
     String[][] resultStrings = MockDataSource.queryResultToStringMatrix(result);
     assertEquals(1, resultStrings.length);
@@ -569,11 +569,11 @@ public class QueryEngineTest extends TestCase {
     List<ColumnDescription> cols1 = result1.getColumnDescriptions();
 
     assertEquals(5, cols1.size());
-    assertEquals("12.0,null count-dept", cols1.get(0).getId());
-    assertEquals("12.0,891.0 count-dept", cols1.get(1).getId());
-    assertEquals("12.0,1180.0 count-dept", cols1.get(2).getId());
-    assertEquals("13.0,null count-dept", cols1.get(3).getId());
-    assertEquals("13.0,1084.0 count-dept", cols1.get(4).getId());
+    assertEquals("12.0,null COUNT-dept", cols1.get(0).getId());
+    assertEquals("12.0,891.0 COUNT-dept", cols1.get(1).getId());
+    assertEquals("12.0,1180.0 COUNT-dept", cols1.get(2).getId());
+    assertEquals("13.0,null COUNT-dept", cols1.get(3).getId());
+    assertEquals("13.0,1084.0 COUNT-dept", cols1.get(4).getId());
 
     resultStrings = MockDataSource.queryResultToStringMatrix(result1);
     assertEquals(1, resultStrings.length);
@@ -622,10 +622,10 @@ public class QueryEngineTest extends TestCase {
     List<ColumnDescription> cols = result.getColumnDescriptions();
 
     assertEquals(5, cols.size());
-    assertEquals("false sum-age", cols.get(0).getId());
-    assertEquals("true sum-age", cols.get(1).getId());
-    assertEquals("false count-dept", cols.get(2).getId());
-    assertEquals("true count-dept", cols.get(3).getId());
+    assertEquals("false SUM-age", cols.get(0).getId());
+    assertEquals("true SUM-age", cols.get(1).getId());
+    assertEquals("false COUNT-dept", cols.get(2).getId());
+    assertEquals("true COUNT-dept", cols.get(3).getId());
     assertEquals("hour_lunchTime", cols.get(4).getId());
 
     String[][] resultStrings = MockDataSource.queryResultToStringMatrix(result);
@@ -673,8 +673,8 @@ public class QueryEngineTest extends TestCase {
     cols = result.getColumnDescriptions();
 
     assertEquals(3, cols.size());
-    assertEquals("false count-dept", cols.get(0).getId());
-    assertEquals("true count-dept", cols.get(1).getId());
+    assertEquals("false COUNT-dept", cols.get(0).getId());
+    assertEquals("true COUNT-dept", cols.get(1).getId());
     assertEquals("dateDiff_seniorityStartTime,hireDate", cols.get(2).getId());
 
     resultStrings = MockDataSource.queryResultToStringMatrix(result);
@@ -726,10 +726,10 @@ public class QueryEngineTest extends TestCase {
     List<ColumnDescription> cols = result.getColumnDescriptions();
 
     assertEquals(5, cols.size());
-    assertEquals("12.0 sum-age", cols.get(0).getId());
-    assertEquals("13.0 sum-age", cols.get(1).getId());
-    assertEquals("12.0 count-dept", cols.get(2).getId());
-    assertEquals("13.0 count-dept", cols.get(3).getId());
+    assertEquals("12.0 SUM-age", cols.get(0).getId());
+    assertEquals("13.0 SUM-age", cols.get(1).getId());
+    assertEquals("12.0 COUNT-dept", cols.get(2).getId());
+    assertEquals("13.0 COUNT-dept", cols.get(3).getId());
     assertEquals("isSenior", cols.get(4).getId());
 
     String[][] resultStrings = MockDataSource.queryResultToStringMatrix(result);
@@ -773,10 +773,10 @@ public class QueryEngineTest extends TestCase {
     cols = result.getColumnDescriptions();
 
     assertEquals(5, cols.size());
-    assertEquals("null count-dept", cols.get(0).getId());
-    assertEquals("891.0 count-dept", cols.get(1).getId());
-    assertEquals("1084.0 count-dept", cols.get(2).getId());
-    assertEquals("1180.0 count-dept", cols.get(3).getId());
+    assertEquals("null COUNT-dept", cols.get(0).getId());
+    assertEquals("891.0 COUNT-dept", cols.get(1).getId());
+    assertEquals("1084.0 COUNT-dept", cols.get(2).getId());
+    assertEquals("1180.0 COUNT-dept", cols.get(3).getId());
     assertEquals("isSenior", cols.get(4).getId());
 
     resultStrings = MockDataSource.queryResultToStringMatrix(result);
@@ -829,8 +829,8 @@ public class QueryEngineTest extends TestCase {
     List<ColumnDescription> cols = result.getColumnDescriptions();
 
     assertEquals(3, cols.size());
-    assertEquals("12.0 count-dept", cols.get(0).getId());
-    assertEquals("13.0 count-dept", cols.get(1).getId());
+    assertEquals("12.0 COUNT-dept", cols.get(0).getId());
+    assertEquals("13.0 COUNT-dept", cols.get(1).getId());
     assertEquals("year_seniorityStartTime", cols.get(2).getId());
 
     String[][] resultStrings = MockDataSource.queryResultToStringMatrix(result);
@@ -917,9 +917,9 @@ public class QueryEngineTest extends TestCase {
     List<ColumnDescription> cols = result.getColumnDescriptions();
 
     assertEquals(3, cols.size());
-    assertEquals("sum-age", cols.get(0).getId());
+    assertEquals("SUM-age", cols.get(0).getId());
     assertEquals("dept", cols.get(1).getId());
-    assertEquals("hour_min-lunchTime", cols.get(2).getId());
+    assertEquals("hour_MIN-lunchTime", cols.get(2).getId());
 
     String[][] resultStrings = MockDataSource.queryResultToStringMatrix(result);
     assertEquals(3, resultStrings.length);
@@ -957,7 +957,7 @@ public class QueryEngineTest extends TestCase {
     List<ColumnDescription> cols1 = result1.getColumnDescriptions();
 
     assertEquals(2, cols1.size());
-    assertEquals("count-name", cols1.get(0).getId());
+    assertEquals("COUNT-name", cols1.get(0).getId());
     assertEquals("hour_lunchTime", cols1.get(1).getId());
 
     String[][] resultStrings1 =
@@ -1000,12 +1000,12 @@ public class QueryEngineTest extends TestCase {
     List<ColumnDescription> cols = result.getColumnDescriptions();
 
     assertEquals(6, cols.size());
-    assertEquals("Eng sum-age", cols.get(0).getId());
-    assertEquals("Marketing sum-age", cols.get(1).getId());
-    assertEquals("Sales sum-age", cols.get(2).getId());
-    assertEquals("Eng hour_min-lunchTime", cols.get(3).getId());
-    assertEquals("Marketing hour_min-lunchTime", cols.get(4).getId());
-    assertEquals("Sales hour_min-lunchTime", cols.get(5).getId());
+    assertEquals("Eng SUM-age", cols.get(0).getId());
+    assertEquals("Marketing SUM-age", cols.get(1).getId());
+    assertEquals("Sales SUM-age", cols.get(2).getId());
+    assertEquals("Eng hour_MIN-lunchTime", cols.get(3).getId());
+    assertEquals("Marketing hour_MIN-lunchTime", cols.get(4).getId());
+    assertEquals("Sales hour_MIN-lunchTime", cols.get(5).getId());
 
     String[][] resultStrings = MockDataSource.queryResultToStringMatrix(result);
     assertEquals(1, resultStrings.length);
@@ -1055,13 +1055,13 @@ public class QueryEngineTest extends TestCase {
     List<ColumnDescription> cols = result.getColumnDescriptions();
 
     assertEquals(7, cols.size());
-    assertEquals("Eng sum-age", cols.get(0).getId());
-    assertEquals("Marketing sum-age", cols.get(1).getId());
-    assertEquals("Sales sum-age", cols.get(2).getId());
+    assertEquals("Eng SUM-age", cols.get(0).getId());
+    assertEquals("Marketing SUM-age", cols.get(1).getId());
+    assertEquals("Sales SUM-age", cols.get(2).getId());
     assertEquals("day_hireDate", cols.get(3).getId());
-    assertEquals("Eng hour_min-lunchTime", cols.get(4).getId());
-    assertEquals("Marketing hour_min-lunchTime", cols.get(5).getId());
-    assertEquals("Sales hour_min-lunchTime", cols.get(6).getId());
+    assertEquals("Eng hour_MIN-lunchTime", cols.get(4).getId());
+    assertEquals("Marketing hour_MIN-lunchTime", cols.get(5).getId());
+    assertEquals("Sales hour_MIN-lunchTime", cols.get(6).getId());
 
     String[][] resultStrings = MockDataSource.queryResultToStringMatrix(result);
     assertEquals(4, resultStrings.length);
@@ -1271,7 +1271,7 @@ public class QueryEngineTest extends TestCase {
     List<ColumnDescription> cols = result.getColumnDescriptions();
 
     assertEquals(2, cols.size());
-    assertEquals("sum-age", cols.get(0).getId());
+    assertEquals("SUM-age", cols.get(0).getId());
     assertEquals("difference_day_hireDate,hour_seniorityStartTime",
         cols.get(1).getId());
 

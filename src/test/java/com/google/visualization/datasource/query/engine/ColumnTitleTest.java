@@ -79,27 +79,27 @@ public class ColumnTitleTest extends TestCase {
 
     // Check the creation of result column description with aggregation
     // type count.
-    assertEquals("count-id", resultColumnDescriptionCount.getId());
-    assertEquals("count label", resultColumnDescriptionCount.getLabel());
+    assertEquals("COUNT-id", resultColumnDescriptionCount.getId());
+    assertEquals("COUNT label", resultColumnDescriptionCount.getLabel());
     assertEquals(ValueType.NUMBER, resultColumnDescriptionCount.getType());
 
     // Check the creation of result column description with aggregation
     // type min.
-    assertEquals("min-id", resultColumnDescriptionMin.getId());
-    assertEquals("min label", resultColumnDescriptionMin.getLabel());
+    assertEquals("MIN-id", resultColumnDescriptionMin.getId());
+    assertEquals("MIN label", resultColumnDescriptionMin.getLabel());
     assertEquals(ValueType.TEXT, resultColumnDescriptionMin.getType());
 
     // Check the creation of result column description with aggregation
     // type count with pivot and single aggregation.
-    assertEquals("3.14,true count-id", resultColumnDescriptionCountWithPivot.getId());
+    assertEquals("3.14,true COUNT-id", resultColumnDescriptionCountWithPivot.getId());
     assertEquals("3.14,true", resultColumnDescriptionCountWithPivot.getLabel());
     assertEquals(ValueType.NUMBER, resultColumnDescriptionCountWithPivot.getType());
 
     // Check the creation of result column description with aggregation
     // type min with pivot, multi-aggregation.
-    assertEquals("3.14,true min-id",
+    assertEquals("3.14,true MIN-id",
         resultColumnDescriptionMinWithPivot.getId());
-    assertEquals("3.14,true min label",
+    assertEquals("3.14,true MIN label",
         resultColumnDescriptionMinWithPivot.getLabel());
     assertEquals(ValueType.TEXT, resultColumnDescriptionMinWithPivot.getType());
   }

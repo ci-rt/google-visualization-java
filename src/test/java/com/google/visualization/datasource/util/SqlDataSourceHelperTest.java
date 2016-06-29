@@ -127,7 +127,7 @@ public class SqlDataSourceHelperTest extends TestCase {
     query.setSelection(querySelection);
     StrBuilder queryStringBuilder = new StrBuilder();
     SqlDataSourceHelper.appendSelectClause(query, queryStringBuilder);
-    assertEquals(queryStringBuilder.toString(), "SELECT \"ID\", min(\"Salary\") ",
+    assertEquals(queryStringBuilder.toString(), "SELECT \"ID\", MIN(\"Salary\") ",
         queryStringBuilder.toString());
   }
 
@@ -257,7 +257,7 @@ public class SqlDataSourceHelperTest extends TestCase {
     StrBuilder queryStringBuilder = new StrBuilder();
     SqlDataSourceHelper.appendOrderByClause(query, queryStringBuilder);
     assertEquals(queryStringBuilder.toString(),
-        "ORDER BY count(\"ID\") DESC, \"FNAME\" ",
+        "ORDER BY COUNT(\"ID\") DESC, \"FNAME\" ",
         queryStringBuilder.toString());
   }
 

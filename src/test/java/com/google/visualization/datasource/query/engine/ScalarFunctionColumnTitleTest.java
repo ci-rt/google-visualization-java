@@ -51,7 +51,7 @@ public class ScalarFunctionColumnTitleTest extends TestCase {
     ColumnDescription simpleColumnDescription =
         new ColumnDescription("simpleColumn", ValueType.DATE, "simpleLabel");
     ColumnDescription aggreationColumnDescription =
-        new ColumnDescription("min-simpleColumn", ValueType.DATE,
+        new ColumnDescription("MIN-simpleColumn", ValueType.DATE,
             "aggLabel");
     DataTable table = new DataTable();
     table.addColumn(simpleColumnDescription);
@@ -103,7 +103,7 @@ public class ScalarFunctionColumnTitleTest extends TestCase {
     assertEquals(ValueType.NUMBER, resultColumnDescriptionYear.getType());
 
     // Check the creation of result column description with aggregation.
-    assertEquals("second_min-simpleColumn",
+    assertEquals("second_MIN-simpleColumn",
         resultColumnDescriptionSecondWithAgg.getId());
     assertEquals(" second(aggLabel)",
         resultColumnDescriptionSecondWithAgg.getLabel());
@@ -120,7 +120,7 @@ public class ScalarFunctionColumnTitleTest extends TestCase {
 
     // Check the creation of result column description with aggregation
     // and pivot.
-    assertEquals("3.14,true day_min-simpleColumn",
+    assertEquals("3.14,true day_MIN-simpleColumn",
         resultColumnDescriptionDayWithPivotAndAgg.getId());
     assertEquals("3.14,true day(aggLabel)",
         resultColumnDescriptionDayWithPivotAndAgg.getLabel());

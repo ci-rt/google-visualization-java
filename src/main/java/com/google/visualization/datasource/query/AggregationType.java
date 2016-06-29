@@ -42,7 +42,7 @@ public enum AggregationType {
    * @param code The code for this AggregationType.
    */
   private AggregationType(String code) {
-    this.code = code;
+    this.code = code.toUpperCase();
   }
 
   /**
@@ -62,7 +62,13 @@ public enum AggregationType {
    * @return The correct AggregationType for the given code.
    */
   public static AggregationType getByCode(String code) {
-    return codeToAggregationType.get(code);
+    AggregationType agg = codeToAggregationType.get(code);
+    
+    if (agg == null) {
+      throw new RuntimeException("Illegal Aggregation Code (" + code + ")");
+    }
+    
+    return agg;
   }
 
   /**

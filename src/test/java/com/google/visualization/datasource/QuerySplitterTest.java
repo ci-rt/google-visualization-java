@@ -124,7 +124,7 @@ public class QuerySplitterTest extends TestCase {
     columns = selection.getColumns();
     assertEquals(2, columns.size());
     assertEquals("A", ((SimpleColumn) columns.get(0)).getId());
-    assertEquals("max-B", ((AggregationColumn) columns.get(1)).getAggregatedColumn().getId());
+    assertEquals("MAX-B", ((AggregationColumn) columns.get(1)).getAggregatedColumn().getId());
     assertEquals(AggregationType.MIN, ((AggregationColumn) columns.get(1)).getAggregationType());
     assertFalse(completionQuery.hasFilter());
     columns = completionQuery.getSort().getColumns();
@@ -196,7 +196,7 @@ public class QuerySplitterTest extends TestCase {
     assertEquals("A", labelColumns[0].getId());
     AbstractColumn col = labelColumns[1];
     assertTrue(col instanceof SimpleColumn);
-    assertEquals("max-B", ((SimpleColumn) col).getId());
+    assertEquals("MAX-B", ((SimpleColumn) col).getId());
     assertEquals("maxBLabel", completionQuery.getLabels().getLabel(col));
     AbstractColumn[] formatColumns =
         completionQuery.getUserFormatOptions().getColumns().toArray(new AbstractColumn[]{});
@@ -209,7 +209,7 @@ public class QuerySplitterTest extends TestCase {
     assertEquals("A", formatColumns[0].getId());
     col = formatColumns[1];
     assertTrue(col instanceof SimpleColumn);
-    assertEquals("max-B", ((SimpleColumn) col).getId());
+    assertEquals("MAX-B", ((SimpleColumn) col).getId());
     assertEquals("maxB#", completionQuery.getUserFormatOptions().getPattern(col));
     
     assertFalse(completionQuery.hasGroup());

@@ -52,7 +52,7 @@ public class ScalarFunctionColumnTest extends TestCase {
     columns1.add(new SimpleColumn("col1"));
     columns1.add(new SimpleColumn("col2"));
     columns1.add(new AggregationColumn(new SimpleColumn("col3"),
-        AggregationType.getByCode("sum")));
+        AggregationType.getByCode("SUM")));
 
     ScalarFunctionColumn innerScalarFunctionColumn =
         new ScalarFunctionColumn(columns1, scalarFunction1);
@@ -65,7 +65,7 @@ public class ScalarFunctionColumnTest extends TestCase {
     columns.add(new SimpleColumn("col5"));
     columns.add(innerScalarFunctionColumn);
     columns.add(new AggregationColumn(new SimpleColumn("col6"),
-        AggregationType.getByCode("sum")));
+        AggregationType.getByCode("SUM")));
     columns.add(new SimpleColumn("col7"));
 
     scalarFunctionColumn = new ScalarFunctionColumn(columns, scalarFunction);
@@ -141,10 +141,10 @@ public class ScalarFunctionColumnTest extends TestCase {
         scalarFunctionColumn.getAllAggregationColumns();
     List<AggregationColumn> expectedAggregationColumns = Lists.newArrayList();
     expectedAggregationColumns.add(new AggregationColumn(
-        new SimpleColumn("col3"), AggregationType.getByCode("sum")));
+        new SimpleColumn("col3"), AggregationType.getByCode("SUM")));
     expectedAggregationColumns.add(
         new AggregationColumn(new SimpleColumn("col6"),
-            AggregationType.getByCode("sum")));
+            AggregationType.getByCode("SUM")));
     assertEquals(expectedAggregationColumns, aggregationColumns);
   }
 
@@ -161,7 +161,7 @@ public class ScalarFunctionColumnTest extends TestCase {
     columns1.add(new SimpleColumn("col1"));
     columns1.add(new SimpleColumn("col2"));
     columns1.add(new AggregationColumn(new SimpleColumn("col3"),
-        AggregationType.getByCode("sum")));
+        AggregationType.getByCode("SUM")));
 
     ScalarFunctionColumn innerScalarFunctionColumn =
         new ScalarFunctionColumn(columns1, scalarFunction1);
@@ -184,7 +184,7 @@ public class ScalarFunctionColumnTest extends TestCase {
   }
   
   public void testGetId() {
-    assertEquals("year_col4,col5,month_col1,col2,sum-col3,sum-col6,col7",
+    assertEquals("year_col4,col5,month_col1,col2,SUM-col3,SUM-col6,col7",
                  scalarFunctionColumn.getId());
   }
 }

@@ -125,8 +125,9 @@ public class SqlDataSourceHelper {
       buildRows(table, rs);
       return table;
     } catch (SQLException e) {
-      String messageToUser = "Failed to execute SQL query. mySQL error message:"
-          + " " + e.getMessage();
+      String messageToUser = "Failed to execute SQL query: "
+              + "\"" + queryStringBuilder.toString() + "\"\n"
+              + "SQL error message: " + e.getMessage();
       throw new DataSourceException(
           ReasonType.INTERNAL_ERROR, messageToUser);
     } finally {

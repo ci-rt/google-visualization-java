@@ -353,7 +353,7 @@ public class DataSourceHelperTest extends TestCase {
     checkQueryError("offset -1", dataTable,
         "Invalid value for row offset: -1");
     checkQueryError("select avg(C),avg(C)", dataTable,
-        "Column [avg(C)] cannot appear more than once in SELECT.");
+        "Column [AVG(C)] cannot appear more than once in SELECT.");
   }
   
   private void checkQueryError(String query, DataTable dataTable, String expectedMessage) {
