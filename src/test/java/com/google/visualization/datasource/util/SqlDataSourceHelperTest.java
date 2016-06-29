@@ -127,7 +127,7 @@ public class SqlDataSourceHelperTest extends TestCase {
     query.setSelection(querySelection);
     StrBuilder queryStringBuilder = new StrBuilder();
     SqlDataSourceHelper.appendSelectClause(query, queryStringBuilder);
-    assertEquals(queryStringBuilder.toString(), "SELECT `ID`, min(`Salary`) ",
+    assertEquals(queryStringBuilder.toString(), "SELECT \"ID\", min(\"Salary\") ",
         queryStringBuilder.toString());
   }
 
@@ -180,8 +180,8 @@ public class SqlDataSourceHelperTest extends TestCase {
     StrBuilder queryStringBuilder = new StrBuilder();
     SqlDataSourceHelper.appendWhereClause(query, queryStringBuilder);
     assertEquals(queryStringBuilder.toString(),
-        "WHERE (((`ID`=`Salary`) AND (`ID`>=1.0)) OR ((`Fname` LIKE \"Mi%\") "
-        + "AND (`Lname` LIKE \"%SH%\") AND (`Lname` LIKE \"%tz\"))) ",
+        "WHERE (((\"ID\"=\"Salary\") AND (\"ID\">=1.0)) OR ((\"Fname\" LIKE \"Mi%\") "
+        + "AND (\"Lname\" LIKE \"%SH%\") AND (\"Lname\" LIKE \"%tz\"))) ",
         queryStringBuilder.toString());
 
     // Check empty compound filters.
@@ -208,7 +208,7 @@ public class SqlDataSourceHelperTest extends TestCase {
     query.setFilter(queryCompoundFilter6);
     queryStringBuilder = new StrBuilder();
     SqlDataSourceHelper.appendWhereClause(query, queryStringBuilder);
-    assertEquals(queryStringBuilder.toString(), "WHERE ((`ID`=`Salary`)) ",
+    assertEquals(queryStringBuilder.toString(), "WHERE ((\"ID\"=\"Salary\")) ",
         queryStringBuilder.toString());
     
     // Check "is null".
@@ -216,7 +216,7 @@ public class SqlDataSourceHelperTest extends TestCase {
     query.setFilter(isNullFilter);
     queryStringBuilder = new StrBuilder();
     SqlDataSourceHelper.appendWhereClause(query, queryStringBuilder);
-    assertEquals("WHERE (`ID` IS NULL) ", queryStringBuilder.toString());
+    assertEquals("WHERE (\"ID\" IS NULL) ", queryStringBuilder.toString());
 
     // Check negation.
     NegationFilter negationFilter =
@@ -225,7 +225,7 @@ public class SqlDataSourceHelperTest extends TestCase {
     query.setFilter(negationFilter);
     queryStringBuilder = new StrBuilder();
     SqlDataSourceHelper.appendWhereClause(query, queryStringBuilder);
-    assertEquals("WHERE (NOT (`ID`=`Salary`)) ", queryStringBuilder.toString());
+    assertEquals("WHERE (NOT (\"ID\"=\"Salary\")) ", queryStringBuilder.toString());
   }
 
   /**
@@ -239,7 +239,7 @@ public class SqlDataSourceHelperTest extends TestCase {
     query.setGroup(queryGroup);
     StrBuilder queryStringBuilder = new StrBuilder();
     SqlDataSourceHelper.appendGroupByClause(query, queryStringBuilder);
-    assertEquals("GROUP BY `ID`, `FNAME` ", queryStringBuilder.toString());
+    assertEquals("GROUP BY \"ID\", \"FNAME\" ", queryStringBuilder.toString());
   }
 
   /**
@@ -257,7 +257,7 @@ public class SqlDataSourceHelperTest extends TestCase {
     StrBuilder queryStringBuilder = new StrBuilder();
     SqlDataSourceHelper.appendOrderByClause(query, queryStringBuilder);
     assertEquals(queryStringBuilder.toString(),
-        "ORDER BY count(`ID`) DESC, `FNAME` ",
+        "ORDER BY count(\"ID\") DESC, \"FNAME\" ",
         queryStringBuilder.toString());
   }
 

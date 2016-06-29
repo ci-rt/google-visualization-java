@@ -225,7 +225,7 @@ public class SqlDataSourceHelper {
     List<String> groupColumnIds = queryGroup.getColumnIds();
     List<String> newColumnIds = Lists.newArrayList();
     for (String groupColumnId : groupColumnIds) {
-      newColumnIds.add('`' + groupColumnId + '`');
+      newColumnIds.add('\"' + groupColumnId + '\"');
     }
     queryStringBuilder.appendWithSeparators(newColumnIds, ", ");
     queryStringBuilder.append(" ");
@@ -491,15 +491,15 @@ public class SqlDataSourceHelper {
 
     // For simple column the id is simply the column id.
     if (abstractColumn instanceof SimpleColumn) {
-      columnId.append("`").append(abstractColumn.getId()).append("`");
+      columnId.append("\"").append(abstractColumn.getId()).append("\"");
     } else {
       // For aggregation column build the id from the aggregation type and the
-      // column id (e.g. for aggregation type 'min' and column id 'salary', the
-      // sql column id will be: min(`salary`);
+      // column id (e.g. for aggregation type 'min' and column id "salary", the
+      // sql column id will be: min("salary");
       AggregationColumn aggregationColumn = (AggregationColumn) abstractColumn;
       columnId.append(getAggregationFunction(
-          aggregationColumn.getAggregationType())).append("(`").
-          append(aggregationColumn.getAggregatedColumn()).append("`)");
+          aggregationColumn.getAggregationType())).append("(\"").
+          append(aggregationColumn.getAggregatedColumn()).append("\")");
     }
     return columnId;
   }
