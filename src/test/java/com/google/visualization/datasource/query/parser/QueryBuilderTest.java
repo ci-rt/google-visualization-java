@@ -94,7 +94,7 @@ public class QueryBuilderTest extends TestCase {
 
   public void testUnicodeInput() throws Exception {
     // Select aleph, bet, gimmel. (Hebrew).
-    Query query = QueryBuilder.getInstance().parseQuery("SELECT `\u05d0`,`\u05d1`,`\u05d2` ");
+    Query query = QueryBuilder.getInstance().parseQuery("SELECT \"\u05d0\",\"\u05d1\",\"\u05d2\" ");
 
     assertEquals(null, query.getSort());
     QuerySelection selection = query.getSelection();
@@ -167,7 +167,7 @@ public class QueryBuilderTest extends TestCase {
 
   public void testStrangeAggregations() throws Exception {
     Query query = QueryBuilder.getInstance().parseQuery(
-        " SELECT `a, b`, avg, min(min), max(max) group by `a, b`, avg "
+        " SELECT \"a, b\", avg, min(min), max(max) group by \"a, b\", avg "
             + " pivot count");
     QuerySelection selection = query.getSelection();
     QueryGroup group = query.getGroup();
@@ -351,12 +351,6 @@ public class QueryBuilderTest extends TestCase {
 
   // LABEL clause tests
 
-  public void testOneValidLabelWithDoubleQuotes() throws Exception {
-    Query query = QueryBuilder.getInstance().parseQuery("select c1 label c1 \"Label 1\" ");
-    QueryLabels labels = query.getLabels();
-    assertEquals("Label 1", labels.getLabel(new SimpleColumn("c1")));
-  }
-
   public void testOneValidLabelWithSingleQuote() throws Exception {
     Query query = QueryBuilder.getInstance().parseQuery("select c1 label c1 'Label 1' ");
     QueryLabels labels = query.getLabels();
@@ -380,6 +374,15 @@ public class QueryBuilderTest extends TestCase {
     }
   }
 
+  public void testInValidLabelWithDoubleQuotes() throws Exception {
+    try {
+      Query query = QueryBuilder.getInstance().parseQuery("select c1 label c1 \"Label 1\" ");
+      fail("Should have thrown an exception.");
+    } catch (InvalidQueryException e) {
+      // Expected behavior.
+    }
+  }
+  
   public void testInvalidEmptyLabel() throws Exception {
     try {
       Query query = QueryBuilder.getInstance().parseQuery("select c1 label c1 ");
@@ -410,12 +413,6 @@ public class QueryBuilderTest extends TestCase {
 
   // FORMAT clause tests
 
-  public void testOneValidFormatWithDoubleQuotes() throws Exception {
-    Query query = QueryBuilder.getInstance().parseQuery("select c1 Format c1 \"Format 1\" ");
-    QueryFormat formats = query.getUserFormatOptions();
-    assertEquals("Format 1", formats.getPattern(new SimpleColumn("c1")));
-  }
-
   public void testOneValidFormatWithSingleQuote() throws Exception {
     Query query = QueryBuilder.getInstance().parseQuery("select c1 Format c1 'Format 1' ");
     QueryFormat formats = query.getUserFormatOptions();
@@ -439,6 +436,15 @@ public class QueryBuilderTest extends TestCase {
     }
   }
 
+  public void testInValidFormatWithDoubleQuotes() throws Exception {
+    try {
+      Query query = QueryBuilder.getInstance().parseQuery("select c1 Format c1 \"Format 1\" ");
+      fail("Should have thrown an exception.");
+    } catch (InvalidQueryException e) {
+      // Expected behavior.
+    }
+  }
+  
   public void testInvalidEmptyFormat() throws Exception {
     try {
       Query query = QueryBuilder.getInstance().parseQuery("select c1 Format c1 ");
@@ -470,7 +476,7 @@ public class QueryBuilderTest extends TestCase {
   // WHERE clause tests:
 
   public void testColumnColumnFilter() throws Exception {
-    Query query = QueryBuilder.getInstance().parseQuery(" WHERE C1 > `c 2`");
+    Query query = QueryBuilder.getInstance().parseQuery(" WHERE C1 > \"c 2\"");
     QueryFilter filter = query.getFilter();
     assertTrue(filter instanceof ColumnColumnFilter);
     ColumnColumnFilter f = (ColumnColumnFilter) filter;
@@ -493,7 +499,7 @@ public class QueryBuilderTest extends TestCase {
   }
 
   public void testColumnValueFilterWithText1() throws Exception {
-    Query query = QueryBuilder.getInstance().parseQuery(" WHERE `selEct` = 'baba'");
+    Query query = QueryBuilder.getInstance().parseQuery(" WHERE \"selEct\" = 'baba'");
     QueryFilter filter = query.getFilter();
     assertTrue(filter instanceof ColumnValueFilter);
     ColumnValueFilter f = (ColumnValueFilter) filter;
@@ -506,7 +512,7 @@ public class QueryBuilderTest extends TestCase {
   }
 
   public void testColumnValueFilterWithText2() throws Exception {
-    Query query = QueryBuilder.getInstance().parseQuery(" WHERE MiN <> \"baba\"");
+    Query query = QueryBuilder.getInstance().parseQuery(" WHERE MiN <> 'baba'");
     QueryFilter filter = query.getFilter();
     assertTrue(filter instanceof ColumnValueFilter);
     ColumnValueFilter f = (ColumnValueFilter) filter;
@@ -532,7 +538,7 @@ public class QueryBuilderTest extends TestCase {
   }
 
   public void testColumnValueFilterWithBoolean2() throws Exception {
-    Query query = QueryBuilder.getInstance().parseQuery(" WHERE `min` >= FalSe");
+    Query query = QueryBuilder.getInstance().parseQuery(" WHERE \"min\" >= FalSe");
     QueryFilter filter = query.getFilter();
     assertTrue(filter instanceof ColumnValueFilter);
     ColumnValueFilter f = (ColumnValueFilter) filter;
@@ -546,7 +552,7 @@ public class QueryBuilderTest extends TestCase {
   }
 
   public void testReverseColumnValueFilter1() throws Exception {
-    Query query = QueryBuilder.getInstance().parseQuery(" WHERE -.3 < `ba ba`");
+    Query query = QueryBuilder.getInstance().parseQuery(" WHERE -.3 < \"ba ba\"");
     QueryFilter filter = query.getFilter();
     assertTrue(filter instanceof ColumnValueFilter);
     ColumnValueFilter f = (ColumnValueFilter) filter;
@@ -574,7 +580,7 @@ public class QueryBuilderTest extends TestCase {
   }
 
   public void testReverseColumnValueFilter3() throws Exception {
-    Query query = QueryBuilder.getInstance().parseQuery(" WHERE false <> `false`  ");
+    Query query = QueryBuilder.getInstance().parseQuery(" WHERE false <> \"false\"  ");
     QueryFilter filter = query.getFilter();
     assertTrue(filter instanceof ColumnValueFilter);
     ColumnValueFilter f = (ColumnValueFilter) filter;
@@ -602,7 +608,7 @@ public class QueryBuilderTest extends TestCase {
 
   public void testAndFilter() throws Exception {
     Query query = QueryBuilder.getInstance().parseQuery(
-        " WHERE c1 < c2 AND 4 >= `WHERE` aNd (`c1` < `c 3`)");
+        " WHERE c1 < c2 AND 4 >= \"WHERE\" aNd (\"c1\" < \"c 3\")");
     QueryFilter filter = query.getFilter();
     assertTrue(filter instanceof CompoundFilter);
     CompoundFilter f = (CompoundFilter) filter;
@@ -621,8 +627,8 @@ public class QueryBuilderTest extends TestCase {
 
   public void testMultipleAndAssociativity() throws Exception {
     Query query = QueryBuilder.getInstance().parseQuery(
-        " WHERE `Date` > '2008-06-01' and `RoleId` != 47 and "
-            + "`RoleId` != 6 and `RoleId` != 8 and `RoleId` != 2");
+        " WHERE \"Date\" > '2008-06-01' and \"RoleId\" != 47 and "
+            + "\"RoleId\" != 6 and \"RoleId\" != 8 and \"RoleId\" != 2");
     QueryFilter filter = query.getFilter();
     assertTrue(filter instanceof CompoundFilter);
     CompoundFilter f = (CompoundFilter) filter;
@@ -655,7 +661,7 @@ public class QueryBuilderTest extends TestCase {
 
   public void testOrFilterWithExtraneousParantheses() throws Exception {
     Query query = QueryBuilder.getInstance().parseQuery(
-        " WHERE (((c1 < c2)) OR 4 >= `WHERE` OR (`c1` < `c 3`))");
+        " WHERE (((c1 < c2)) OR 4 >= \"WHERE\" OR (\"c1\" < \"c 3\"))");
     QueryFilter filter = query.getFilter();
     assertTrue(filter instanceof CompoundFilter);
     CompoundFilter f = (CompoundFilter) filter;
@@ -1042,7 +1048,7 @@ public class QueryBuilderTest extends TestCase {
 
   public void testPivotAndGroupByArithmeticExpression() throws Exception {
     Query query = QueryBuilder.getInstance().parseQuery("select sum(c7) group "
-        + "by ((c1+c2)*c3/c4) pivot `c5` -   `c6`");
+        + "by ((c1+c2)*c3/c4) pivot \"c5\" -   \"c6\"");
     QueryGroup group = query.getGroup();
     QueryPivot pivot = query.getPivot();
     List<AbstractColumn> groupColumns = group.getColumns();
@@ -1070,17 +1076,17 @@ public class QueryBuilderTest extends TestCase {
   public void testVeryLongFilterQuery() throws Exception {
     QueryBuilder.getInstance().parseQuery("WHERE ((((((((a+b)*c"
         + "*d+e+f/(g+h*(d+b)))*3.3+d)/b+(d*3+year(c1)/month(c2)))-9+a)+b*c*d*e"
-        + ")-year(d))< (((((((a+b)*c*d+e+f/(g+h*(d+b)))*3.3+100*`r`)/b+(d*3+"
-        + "year(c1)/month(c2)))-9+a)+b*c*d*e)-year(d))) AND ((((((((a+`b d`)*"
+        + ")-year(d))< (((((((a+b)*c*d+e+f/(g+h*(d+b)))*3.3+100*\"r\")/b+(d*3+"
+        + "year(c1)/month(c2)))-9+a)+b*c*d*e)-year(d))) AND ((((((((a+\"b d\")*"
         + "c*d+e+f/(g+h*(d+b)))*3.3+d)/b+(d*3+year(c1)/month(c2)))-9+a)+b*c*d"
-        + "*e)-year(d))< (((((((a+bilo)*c*d+e+f/(g+h*(d+b)))*3.3+100*`r`)/b+("
-        + "d*3+year(c1)/month(c2)))-9+a)+b*c*d*e)-year(d))) AND ((((((((a+`b d"
-        + "`)*c*gfdd+e+f/(g+h*(d+b)))*3.3+d)/b+(d*3+year(c1)/month(c2)))-9+a)"
+        + "*e)-year(d))< (((((((a+bilo)*c*d+e+f/(g+h*(d+b)))*3.3+100*\"r\")/b+("
+        + "d*3+year(c1)/month(c2)))-9+a)+b*c*d*e)-year(d))) AND ((((((((a+\"b d"
+        + "\")*c*gfdd+e+f/(g+h*(d+b)))*3.3+d)/b+(d*3+year(c1)/month(c2)))-9+a)"
         + "+b*c*d*e)-year(d))< (((((((a+bsdilo)*c*d+e+f/(g+h*(d+b)))*3.3+100"
-        + "*`r`)/b+(d*3+year(c1)/month(c2)))-9+a)+b*c*d*e)-year(d))) OR (((((("
-        + "((a+`b d`)*c*d+e+f/(g+hhh*(ffd+b)))*3.3+d)/b+(d*3+year(c1)/month(c2)"
+        + "*\"r\")/b+(d*3+year(c1)/month(c2)))-9+a)+b*c*d*e)-year(d))) OR (((((("
+        + "((a+\"b d\")*c*d+e+f/(g+hhh*(ffd+b)))*3.3+d)/b+(d*3+year(c1)/month(c2)"
         + "))-9+a)+b*c*d*e)-year(d))< (((((((a+bilo)*c*d+e+f/(g+h*(d+bss)))*"
-        + "3.3+100*`r`)/b+(d*3+year(c1)/month(c2)))-9+a)+b*c*d*e)-year(d))) OR"
+        + "3.3+100*\"r\")/b+(d*3+year(c1)/month(c2)))-9+a)+b*c*d*e)-year(d))) OR"
         + " NOT (a + b < 3)");
   }
 

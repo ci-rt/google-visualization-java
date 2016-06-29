@@ -173,9 +173,8 @@ TOKEN:
   | <#DIGIT: ["0"-"9"] >
   | <#LETTER_OR_UNDERSCORE: ["a"-"z","A"-"Z","_"] >
   | <STRING_LITERAL:
-        "'" (~["'"])* "'"
-      | "\"" (~["\""])* "\"" >
-  | <QUOTED_ID: "`" (~["`"])+ "`" >
+        "'" (~["'"])* "'">
+  | <QUOTED_ID: "\"" (~["\""])+ "\"" >
 }
 
 // operators
@@ -709,7 +708,7 @@ ScalarFunction scalarFunction() :
 }
 
 // A single column id. This may be a simple id (e.g. c1), a quoted id
-// (e.g. `my column`) or a non-reserved keyword (e.g. max)
+// (e.g. "my column") or a non-reserved keyword (e.g. max)
 String columnId() :
 {
   Token t;

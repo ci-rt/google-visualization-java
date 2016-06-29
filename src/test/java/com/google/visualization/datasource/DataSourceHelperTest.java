@@ -135,7 +135,7 @@ public class DataSourceHelperTest extends TestCase {
 
     // Test label and format.
     result = DataSourceHelper.applyQuery(DataSourceHelper.parseQuery(
-        "label population 'Population size (thousands)' format population \"'$'#'k'\""), data,
+        "label population 'Population size (thousands)' format population '$#k'"), data,
         ULocale.US);
     assertEquals(4, result.getNumberOfColumns());
     assertEquals(4, result.getNumberOfRows(), 4);
