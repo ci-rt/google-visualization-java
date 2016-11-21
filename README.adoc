@@ -1,0 +1,22 @@
+google-visualization-java
+=========================
+
+To fit into CI-WEB
+https://github.com/google/google-visualization-java[google-visualization-java]
+was forked and adapted for PostgreSQL.
+
+Quick installation
+------------------
+
+After checkout of git repository execute the following commands:
+
+----
+cd google-visualization-java
+mvn install
+----
+
+CI-WEB integration
+------------------
+
+For integration of google-visualization-java into CI-WEB please read
+https://github.com/ci-rt/ci-web/blob/master/README.adoc[CI-WEB README]
