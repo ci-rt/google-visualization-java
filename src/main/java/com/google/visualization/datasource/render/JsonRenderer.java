@@ -276,6 +276,20 @@ public class JsonRenderer {
           cell = cells.get(cellId);
           if (cellId < (cells.size() - 1)) {
             appendCellJson(cell, sb, includeFormatting, false, renderDateAsDateConstructor);
+
+            /* From the JSON spec:
+             * "An object is an unordered set of name/value pairs. An object
+             * begins with { (left brace) and ends with } (right brace). Each
+             * name is followed by : (colon) and the name/value pairs are
+             * separated by , (comma)."
+             *
+             * Avoid a invalid ",," (comma empty comma) sequence in the JSON
+             * output. Emmit a valid ",{}," sequence instead.
+             */
+            if (sb.toString().endsWith(",")) {
+              sb.append("{}");
+            }
+
             sb.append(",");
           } else {
             // Last column in the row.
@@ -306,6 +320,10 @@ public class JsonRenderer {
     }
 
     sb.append("}"); // table.
+
+    // Avoid a invalid ",," sequence in the JSON output.
+    // Emmit a ",{}," sequence instead.
+    //return sb.toString().replaceAll(",,",",{},");
     return sb;
   }
   

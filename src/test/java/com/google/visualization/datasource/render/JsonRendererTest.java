@@ -254,7 +254,7 @@ public class JsonRendererTest extends TestCase {
             + "{\"id\":\"B\",\"label\":\"col1\",\"type\":\"number\",\"pattern\":\"\"},"
             + "{\"id\":\"C\",\"label\":\"col2\",\"type\":\"boolean\",\"pattern\":\"\"}],"
             + "\"rows\":[{\"c\":[{\"v\":\"aaa\"},{\"v\":222.0,\"f\":\"222\"},{\"v\":false}]},"
-            + "{\"c\":[{\"v\":\"\"},,{\"v\":true}]},"
+            + "{\"c\":[{\"v\":\"\"},{},{\"v\":true}]},"
             + "{\"c\":[{\"v\":\"bbb\"},{\"v\":333.0},{\"v\":true}]},"
             + "{\"c\":[{\"v\":\"d\\u0027dd\"},{\"v\":222.0},{\"v\":false}]}]}",
         JsonRenderer.renderDataTable(testData, true, true, true).toString());
@@ -267,7 +267,7 @@ public class JsonRendererTest extends TestCase {
             + "\"00\\u0027\\u0022\\u003cscript\\u003e##\"},"
             + "{\"id\":\"C\",\"label\":\"col2\",\"type\":\"boolean\",\"pattern\":\"\"}],"
             + "\"rows\":[{\"c\":[{\"v\":\"aaa\"},{\"v\":222.0,\"f\":\"222\"},{\"v\":false}]},"
-            + "{\"c\":[{\"v\":\"\"},,{\"v\":true}]},"
+            + "{\"c\":[{\"v\":\"\"},{},{\"v\":true}]},"
             + "{\"c\":[{\"v\":\"bbb\"},{\"v\":333.0},{\"v\":true}]},"
             + "{\"c\":[{\"v\":\"d\\u0027dd\"},{\"v\":222.0},{\"v\":false}]}]}",
         JsonRenderer.renderDataTable(testData, true, true, true).toString());
