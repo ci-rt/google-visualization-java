@@ -53,6 +53,10 @@ public class HtmlRendererTest extends TestCase {
   // Use platform dependent new-line to validate the results.
   String nl = System.getProperty("line.separator");
 
+  public static void assertEqualsIgnoreWhitespace(String expected, String actual) {
+    assertEquals(expected.replaceAll("\\s+",""), actual.replaceAll("\\s+",""));
+  }
+
   @Override
   public void setUp() throws Exception {
     super.setUp();
@@ -146,7 +150,7 @@ public class HtmlRendererTest extends TestCase {
         + "</html>" + nl;
 
     String actual = HtmlRenderer.renderDataTable(dataTable, ULocale.US).toString();
-    assertEquals(expected, actual);
+    assertEqualsIgnoreWhitespace(expected, actual);
   }
 
   public void testSimpleDataTableToHtml() throws DataSourceException {
@@ -229,7 +233,7 @@ public class HtmlRendererTest extends TestCase {
 
     String actual = HtmlRenderer.renderDataTable(testData, ULocale.US).toString();
 
-    assertEquals(expected, actual);
+    assertEqualsIgnoreWhitespace(expected, actual);
   }
 
   public void testWarnings() throws DataSourceException {
@@ -290,13 +294,13 @@ public class HtmlRendererTest extends TestCase {
 
     String actual = HtmlRenderer.renderDataTable(testData, ULocale.US).toString();
 
-    assertEquals(expected, actual);
+    assertEqualsIgnoreWhitespace(expected, actual);
   }
 
   public void testEscaping() {
     ResponseStatus responseStatus = new ResponseStatus(
         StatusType.ERROR, ReasonType.INVALID_REQUEST, "but why? why? why?");
-    assertEquals(
+    assertEqualsIgnoreWhitespace(
         "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\">" + nl
         + "<html>" + nl
         + "<head>" + nl
@@ -314,7 +318,7 @@ public class HtmlRendererTest extends TestCase {
 
     responseStatus = new ResponseStatus(
         StatusType.ERROR, ReasonType.NOT_SUPPORTED, "Cannot do dat!");
-    assertEquals(
+    assertEqualsIgnoreWhitespace(
         "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\">" + nl
         + "<html>" + nl
         + "<head>" + nl
@@ -334,7 +338,7 @@ public class HtmlRendererTest extends TestCase {
   public void testRenderError() {
     ResponseStatus responseStatus = new ResponseStatus(
         StatusType.ERROR, ReasonType.INVALID_REQUEST, "but why? why?");
-    assertEquals(
+    assertEqualsIgnoreWhitespace(
         "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\">" + nl
         + "<html>" + nl
         + "<head>" + nl
@@ -352,7 +356,7 @@ public class HtmlRendererTest extends TestCase {
 
     responseStatus = new ResponseStatus(
         StatusType.ERROR, ReasonType.NOT_SUPPORTED, "Cannot do dat!");
-    assertEquals(
+    assertEqualsIgnoreWhitespace(
         "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01//EN\">" + nl
         + "<html>" + nl
         + "<head>" + nl
