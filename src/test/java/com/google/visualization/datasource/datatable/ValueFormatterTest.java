@@ -263,7 +263,7 @@ public class ValueFormatterTest extends TestCase {
   // The following is a simple example for Hindi.
   public void testHindiLocale() {
     ValueFormatter dateFormatter = ValueFormatter.createFromPattern(
-        ValueType.DATE, "MM | dd | yyyy", new ULocale("hi_IN"));
+        ValueType.DATE, "MM | dd | yyyy", new ULocale("hi_IN@numbers=deva"));
     DateValue dateValue = new DateValue(2009, 1, 2);
     String dateString =
         "\u0966\u0968\u0020\u007c\u0020\u0966\u0968\u0020\u007c\u0020\u0968\u0966\u0966\u096f";
