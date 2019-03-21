@@ -115,7 +115,7 @@ public class TableCellTest extends TestCase {
     Comparator<TableCell> rootComparator = TableCell.getLocalizedComparator(
         ULocale.ROOT);
     Comparator<TableCell> frComparator = TableCell.getLocalizedComparator(
-        ULocale.FRENCH);
+        ULocale.CANADA_FRENCH);
     TableCell cell1 = new TableCell(new TextValue("cot\u00E9"));
     TableCell cell2 = new TableCell(new TextValue("c\u00F4te"));
     assertEquals(-1, rootComparator.compare(cell1, cell2));

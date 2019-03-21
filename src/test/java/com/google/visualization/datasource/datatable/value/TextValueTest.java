@@ -133,7 +133,7 @@ public class TextValueTest extends TestCase {
     Comparator<TextValue> rootComparator = TextValue.getTextLocalizedComparator(
         ULocale.ROOT);
     Comparator<TextValue> frComparator = TextValue.getTextLocalizedComparator(
-        ULocale.FRENCH);
+        ULocale.CANADA_FRENCH);
     TextValue text1 = new TextValue("cot\u00E9");
     TextValue text2 = new TextValue("c\u00F4te");
     assertEquals(-1, rootComparator.compare(text1, text2));
